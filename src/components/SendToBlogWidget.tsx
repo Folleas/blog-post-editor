@@ -11,7 +11,7 @@ import { Box, Button, Flex, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import { useState } from 'react';
 
-const SendToBlogWidget = ({ content }: any) => {
+const SendToBlogWidget = ({ content }: { content: string }) => {
   const [id, setId] = useState(''); // State for the first text field
   const [code, setCode] = useState(''); // State for the second text field
 

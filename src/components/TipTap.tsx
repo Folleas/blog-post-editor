@@ -7,8 +7,9 @@ import Italic from '@tiptap/extension-italic';
 import Underline from '@tiptap/extension-underline';
 import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
+import { ChangeEvent } from 'react';
 
-const Tiptap = ({ onContentChange }: any) => {
+const Tiptap = ({ onContentChange }: { onContentChange: Function }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -31,12 +32,15 @@ const Tiptap = ({ onContentChange }: any) => {
     return null;
   }
 
-  const handleImageUpload = (event: any) => {
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files === null)
+      return;
     const file = event.target.files[0];
     const reader = new FileReader();
 
     reader.onload = () => {
-      const url = reader.result;
+      const url = reader.result?.toString();
+      if (url)
       editor.chain().focus().setImage({ src: url }).run();
     };
 
